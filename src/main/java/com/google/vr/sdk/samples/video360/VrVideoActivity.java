@@ -29,7 +29,11 @@ import android.util.Pair;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+
+import com.google.vr.cardboard.VrParamsProvider;
+import com.google.vr.cardboard.VrParamsProviderFactory;
 import com.google.vr.ndk.base.DaydreamApi;
+import com.google.vr.ndk.base.DaydreamUtils;
 import com.google.vr.sdk.base.AndroidCompat;
 import com.google.vr.sdk.base.Eye;
 import com.google.vr.sdk.base.GvrActivity;
@@ -38,6 +42,7 @@ import com.google.vr.sdk.base.HeadTransform;
 import com.google.vr.sdk.base.Viewport;
 import com.google.vr.sdk.controller.Controller;
 import com.google.vr.sdk.controller.ControllerManager;
+import com.google.vr.sdk.proto.nano.CardboardDevice;
 import com.google.vr.sdk.samples.video360.rendering.SceneRenderer;
 import javax.microedition.khronos.egl.EGLConfig;
 
@@ -60,7 +65,6 @@ public class VrVideoActivity extends GvrActivity {
 
   // Given an intent with a media file and format, this will load the file and generate the mesh.
   private MediaLoader mediaLoader;
-
   // Interfaces with the Daydream controller.
   private ControllerManager controllerManager;
   private Controller controller;
@@ -73,6 +77,7 @@ public class VrVideoActivity extends GvrActivity {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    DaydreamUtils.setIsDaydreamPhoneForTesting(true);
     mediaLoader = new MediaLoader(this);
 
     gvrView = new GvrView(this);
@@ -117,6 +122,9 @@ public class VrVideoActivity extends GvrActivity {
 
     checkPermissionAndInitialize();
   }
+
+
+
 
   /**
    * Normal apps don't need this. However, since we use adb to interact with this sample, we
@@ -290,7 +298,8 @@ public class VrVideoActivity extends GvrActivity {
     }
 
     @Override
-    public void onRecentered() {}
+    public void onRecentered() {
+    }
 
     @Override
     public void onUpdate() {
@@ -311,3 +320,4 @@ public class VrVideoActivity extends GvrActivity {
     }
   }
 }
+

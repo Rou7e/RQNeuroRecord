@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.google.vr.sdk.samples.video360"
+    package="com.roboquartet.neurorecord"
     android:extractNativeLibs="true"
     android:targetSandboxVersion="2"
     android:versionCode="1"
@@ -28,6 +28,9 @@
         android:name="android.software.vr.mode"
         android:required="true" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- largeheap=true is required for loading 8k x 8k images. -->
     <application
@@ -38,7 +41,7 @@
         <activity
             android:name="com.google.vr.sdk.samples.video360.VideoActivity"
             android:icon="@drawable/icon"
-            android:label="@string/app_name"
+            android:label="NeuroRecord"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" >
 
@@ -55,7 +58,7 @@
             android:name="com.google.vr.sdk.samples.video360.VrVideoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|uiMode|navigation"
             android:enableVrMode="@string/gvr_vr_mode_component"
-            android:label="@string/app_name"
+            android:label="NeuroRecord"
             android:launchMode="singleTask"
             android:resizeableActivity="false"
             android:screenOrientation="landscape"

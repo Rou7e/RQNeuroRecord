@@ -35,8 +35,11 @@ import com.google.vr.sdk.samples.video360.rendering.SceneRenderer;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.net.URLConnection;
 import java.security.InvalidParameterException;
+
+import javax.net.ssl.HttpsURLConnection;
 
 /**
  * MediaLoader takes an Intent from the user and loads the specified media file.
@@ -157,13 +160,13 @@ public class MediaLoader {
     @Override
     protected Void doInBackground(Intent... intent) {
       intent[0] = new Intent(Intent.ACTION_VIEW);
-      intent[0].setData(Uri.parse("https://drive.google.com/file/d/1I5fZ5dX24HLcD2NFGn32U1mqlCrGNQCK/preview"));
-      if (intent == null || intent.length < 1 || intent[0] == null || intent[0].getData() == null) {
+      intent[0].setData(Uri.parse("file:///sdcard/test.mp4"));
+      /*if (intent == null || intent.length < 1 || intent[0] == null || intent[0].getData() == null) {
         // This happens if the Activity wasn't started with the right intent.
         errorText = "No URI specified. Using default panorama.";
         Log.e(TAG, errorText);
         return null;
-      }
+      }*/
 
       // Extract the stereoFormat from the Intent's extras.
       int stereoFormat = intent[0].getIntExtra(MEDIA_FORMAT_KEY, Mesh.MEDIA_MONOSCOPIC);
@@ -178,14 +181,15 @@ public class MediaLoader {
           stereoFormat);
 
       // Based on the Intent's data, load the appropriate media from disk.
-      Uri uri = intent[0].getData();
+      //Uri uri = Uri.parse("/storage/emulated/0/test.mp4"); //it actually works!
+      Uri uri = Uri.parse("https://raw.githubusercontent.com/rou7e/rqneurorecord/main/sampledata/test.mp4"); //it actually works!
       try {
-        File file = new File(uri.getPath());
-        if (!file.exists()) {
+        //File file = new File(uri.getPath());
+        /*if (!file.exists()) {
           throw new FileNotFoundException();
-        }
+        }*/
 
-        String type = URLConnection.guessContentTypeFromName(uri.getPath());
+        String type = HttpsURLConnection.guessContentTypeFromName(uri.getPath());
         if (type == null) {
           throw new InvalidParameterException("Unknown file type: " + uri);
         } else if (type.startsWith("image")) {
@@ -201,7 +205,7 @@ public class MediaLoader {
           throw new InvalidParameterException("Unsupported MIME type: " + type);
         }
 
-      } catch (IOException | InvalidParameterException e) {
+      } catch (InvalidParameterException e) {
         errorText = String.format("Error loading file [%s]: %s", uri.getPath(), e);
         Log.e(TAG, errorText);
       }

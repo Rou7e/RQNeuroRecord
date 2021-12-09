@@ -30,6 +30,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import com.google.vr.ndk.base.DaydreamApi;
 import com.google.vr.sdk.samples.video360.rendering.Mesh;
+import com.roboquartet.neurorecord.R;
 
 /**
  * Basic Activity to hold {@link MonoscopicView} and render a 360 video in 2D.
@@ -43,6 +44,8 @@ import com.google.vr.sdk.samples.video360.rendering.Mesh;
 public class VideoActivity extends Activity {
   private static final String TAG = "VideoActivity";
   private static final int READ_EXTERNAL_STORAGE_PERMISSION_ID = 1;
+  private static final int READ_INTERNET = 1;
+
   private MonoscopicView videoView;
 
   /**
@@ -112,8 +115,29 @@ public class VideoActivity extends Activity {
       button.callOnClick();
     } else {
       // Permission has already been granted.
-      initializeActivity();
+      if (ContextCompat.checkSelfPermission(this, permission.INTERNET)
+              != PackageManager.PERMISSION_GRANTED) {
+        View button = findViewById(R.id.permission_button);
+        button.setOnClickListener(
+                new OnClickListener() {
+                  @Override
+                  public void onClick(View v) {
+                    ActivityCompat.requestPermissions(
+                            VideoActivity.this,
+                            new String[] {permission.INTERNET},
+                            READ_INTERNET);
+                  }
+                });
+        // The user can click the button to request permission but we will also click on their behalf
+        // when the Activity is created.
+        button.callOnClick();
+      } else {
+        // Permission has already been granted.
+        initializeActivity();
+      }
     }
+
+
   }
 
   /** Handles the user accepting the permission. */
@@ -124,7 +148,14 @@ public class VideoActivity extends Activity {
         initializeActivity();
       }
     }
+    if (requestCode == READ_INTERNET) {
+      if (results.length > 0 && results[0] == PackageManager.PERMISSION_GRANTED) {
+        initializeActivity();
+      }
+    }
   }
+
+
 
   /**
    * Normal apps don't need this. However, since we use adb to interact with this sample, we

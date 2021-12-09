@@ -1,4 +1,4 @@
-com.google.vr.sdk.samples.video360
+com.roboquartet.neurorecord
 anim abc_fade_in
 anim abc_fade_out
 anim abc_grow_fade_in_from_bottom

@@ -37,6 +37,7 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import com.google.vr.sdk.samples.video360.rendering.CanvasQuad;
+import com.roboquartet.neurorecord.R;
 
 /**
  * Contains a UI that can be part of a standard 2D Android Activity or a VR Activity.

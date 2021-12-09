@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\Route\\AndroidStudioProjects\\gvr-android-sdk-1.200\\samples\\sdk-video360\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-bn\\values-bn.xml",
+            "outputFile": "C:\\Users\\Route\\AndroidStudioProjects\\gvr-android-sdk-1.200\\samples\\RQNeuroRecord\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-bn\\values-bn.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Route\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\8353b7aea2cd0261e09c6547d1b805f5\\res\\values-bn\\values-bn.xml",
